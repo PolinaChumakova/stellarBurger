@@ -5,3 +5,37 @@
 	padding-bottom: 20px;
 	color: var(--text-primary-color);
 }
+
+.burgersIngredients {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.burgerIngredientScroll {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	height: 45vh;
+	overflow-y: auto;
+}
+
+.burgerIngredient {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+}
+
+.buttonActions {
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+	gap: 40px;
+}
+
+.balance {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
