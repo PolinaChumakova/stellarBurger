@@ -6,6 +6,7 @@ import {
 	CurrencyIcon,
 	Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 type TBurgerIngredientsProps = {
 	ingredients: TIngredient[];
@@ -18,15 +19,19 @@ type Counts = {
 export const BurgerIngredients = ({
 	ingredients,
 }: TBurgerIngredientsProps): React.JSX.Element => {
-	console.log(ingredients);
+	// console.log(ingredients);
 
 	const [counts, setCounts] = useState<Counts>({});
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [selectedIngredient, setSelectedIngredient] = useState<TIngredient>();
 
-	const handleIngredientClick = (id: string) => {
+	const handleIngredientClick = (ingredient: TIngredient) => {
 		setCounts((prevCounts) => ({
 			...prevCounts,
-			[id]: (prevCounts[id] || 0) + 1,
+			[ingredient._id]: (prevCounts[ingredient._id] || 0) + 1,
 		}));
+		setIsOpen(true);
+		setSelectedIngredient(ingredient);
 	};
 
 	return (
@@ -59,10 +64,10 @@ export const BurgerIngredients = ({
 										tabIndex={0}
 										onKeyDown={(e) => {
 											if (e.key === 'Enter' || e.key === ' ') {
-												handleIngredientClick(ingredient._id);
+												handleIngredientClick(ingredient);
 											}
 										}}
-										onClick={() => handleIngredientClick(ingredient._id)}>
+										onClick={() => handleIngredientClick(ingredient)}>
 										<img src={ingredient.image} alt={ingredient.name} />
 										<div className={styles.price}>
 											<p className='text text_type_digits-default mr-2'>
@@ -95,10 +100,10 @@ export const BurgerIngredients = ({
 										tabIndex={0}
 										onKeyDown={(e) => {
 											if (e.key === 'Enter' || e.key === ' ') {
-												handleIngredientClick(ingredient._id);
+												handleIngredientClick(ingredient);
 											}
 										}}
-										onClick={() => handleIngredientClick(ingredient._id)}>
+										onClick={() => handleIngredientClick(ingredient)}>
 										<img src={ingredient.image} alt={ingredient.name} />
 										<div className={styles.price}>
 											<p className='text text_type_digits-default mr-2'>
@@ -131,10 +136,10 @@ export const BurgerIngredients = ({
 										tabIndex={0}
 										onKeyDown={(e) => {
 											if (e.key === 'Enter' || e.key === ' ') {
-												handleIngredientClick(ingredient._id);
+												handleIngredientClick(ingredient);
 											}
 										}}
-										onClick={() => handleIngredientClick(ingredient._id)}>
+										onClick={() => handleIngredientClick(ingredient)}>
 										<img src={ingredient.image} alt={ingredient.name} />
 										<div className={styles.price}>
 											<p className='text text_type_digits-default mr-2'>
@@ -154,6 +159,12 @@ export const BurgerIngredients = ({
 								))}
 						</div>
 					</article>
+					{isOpen && selectedIngredient && (
+						<IngredientDetails
+							ingredient={selectedIngredient}
+							onClose={() => setIsOpen(false)}
+						/>
+					)}
 				</div>
 			</section>
 		</>

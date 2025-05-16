@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { TIngredient } from '@utils/types.ts';
 import styles from './burger-constructor.module.css';
@@ -8,6 +8,7 @@ import {
 	CurrencyIcon,
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderDetails from '../order-details/order-details';
 
 type TBurgerConstructorProps = {
 	ingredients: TIngredient[];
@@ -16,7 +17,12 @@ type TBurgerConstructorProps = {
 export const BurgerConstructor = ({
 	ingredients,
 }: TBurgerConstructorProps): React.JSX.Element => {
-	console.log(ingredients);
+	// console.log(ingredients);c
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	const handleButtonClick = () => {
+		setIsOpen(true);
+	};
 
 	return (
 		<section className={styles.burger_constructor}>
@@ -52,15 +58,20 @@ export const BurgerConstructor = ({
 					/>
 				</div>
 			</div>
-			<div className={`${styles.buttonActions} p-4`}>
+			<div className={`${styles.buttonActions} mt-10`}>
 				<div className={styles.balance}>
 					<p className='text text_type_digits-medium mr-2'>610</p>
 					<CurrencyIcon type='primary' />
 				</div>
-				<Button htmlType='button' type='primary' size='medium'>
+				<Button
+					htmlType='button'
+					type='primary'
+					size='medium'
+					onClick={handleButtonClick}>
 					Оформить заказ
 				</Button>
 			</div>
+			{isOpen && <OrderDetails onClose={() => setIsOpen(false)} />}
 		</section>
 	);
 };
