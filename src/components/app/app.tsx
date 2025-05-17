@@ -13,7 +13,12 @@ export const App = (): React.JSX.Element => {
 			const baseURL = 'https://norma.nomoreparties.space/api/ingredients';
 
 			fetch(baseURL)
-				.then((res) => res.json())
+				.then((res) => {
+								  if (res.ok) {
+									  return res.json();
+								  }
+								  return Promise.reject(`Ошибка ${res.status}`);
+							  })
 				.then((data) => {
 					setIngredients(data.data);
 				})
