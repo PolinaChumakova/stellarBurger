@@ -10,3 +10,7 @@ declare module 'react' {
 		onPointerLeaveCapture?: (e: React.PointerEvent<T>) => void;
 	}
 }
+
+interface Window {
+	__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+}

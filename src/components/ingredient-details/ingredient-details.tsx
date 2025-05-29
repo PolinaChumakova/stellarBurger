@@ -1,13 +1,18 @@
+import { useSelector } from 'react-redux';
+
 import Modal from '../modal/modal';
-import { TIngredient } from '@utils/types.ts';
+import { RootState } from '@utils/types.ts';
 import styles from './ingredient-details.module.css';
 
 type IngredientDetailsProps = {
-	ingredient: TIngredient;
 	onClose: () => void;
 };
 
-const IngredientDetails = ({ ingredient, onClose }: IngredientDetailsProps) => {
+const IngredientDetails = ({ onClose }: IngredientDetailsProps) => {
+	const ingredient = useSelector(
+		(state: RootState) => state.ingredientDetails.ingredientDetails
+	);
+
 	return (
 		<Modal header='Детали ингредиента' onClose={onClose}>
 			<div className={styles.modalContent}>
