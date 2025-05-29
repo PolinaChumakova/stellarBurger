@@ -13,15 +13,19 @@ export const GET_ORDER_DETAILS_REQUEST = 'GET_ORDER_DETAILS_REQUEST';
 export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
 export const GET_ORDER_DETAILS_FAILED = 'GET_ORDER_DETAILS_FAILED';
 
+import { v4 as uuidv4 } from 'uuid';
+import { BASE_URL } from '@utils/api';
+import { checkResponse } from '@utils/functions';
+
 export function getBurgerIngredients() {
 	return (dispatch) => {
-		const baseURL = 'https://norma.nomoreparties.space/api/ingredients';
+		const baseURL = `${BASE_URL}/ingredients`;
 
 		dispatch({
 			type: GET_BURGER_INGREDIENTS_REQUEST,
 		});
 		fetch(baseURL)
-			.then((res) => res.json())
+			.then(checkResponse)
 			.then((res) => {
 				if (res && res.success) {
 					dispatch({
@@ -44,7 +48,7 @@ export function getBurgerIngredients() {
 
 export const setBurgerConstructor = (constructorIngredients) => ({
 	type: GET_BURGER_CONSTRUCTOR,
-	payload: constructorIngredients,
+	payload: { ...constructorIngredients, uniqueId: uuidv4() },
 });
 
 export const deleteBurgerConstructor = (idIngredient) => ({
@@ -68,18 +72,24 @@ export const deleteIngredientDetails = () => ({
 
 export function getOrderDetails(ingredientIds) {
 	return (dispatch) => {
-		const baseURL = 'https://norma.nomoreparties.space/api/orders';
+		const baseURL = `${BASE_URL}/orders`;
 		dispatch({
 			type: GET_ORDER_DETAILS_REQUEST,
 			payload: ingredientIds,
 		});
-		fetch(baseURL)
-			.then((res) => res.json())
+		fetch(baseURL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ ingredients: ingredientIds }),
+		})
+			.then(checkResponse)
 			.then((res) => {
 				if (res && res.success) {
 					dispatch({
 						type: GET_ORDER_DETAILS_SUCCESS,
-						orderDetails: res.data,
+						orderDetails: res.order,
 					});
 				} else {
 					dispatch({

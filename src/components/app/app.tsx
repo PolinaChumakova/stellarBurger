@@ -29,10 +29,10 @@ export const App = (): React.JSX.Element => {
 			</h1>
 			<DndProvider backend={HTML5Backend}>
 				<main className={`${styles.main} pl-5 pr-5`}>
-					<div style={{ overflow: 'hidden', clear: 'both' }}>
+					<div className={styles.burgerContainer}>
 						<BurgerIngredients />
 					</div>
-					<div style={{ overflow: 'hidden', clear: 'both' }}>
+					<div className={styles.burgerContainer}>
 						<BurgerConstructor />
 					</div>
 				</main>

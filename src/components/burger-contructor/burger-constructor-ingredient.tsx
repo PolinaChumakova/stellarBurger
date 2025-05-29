@@ -84,7 +84,7 @@ export const BurgerConstructorIngredient = ({
 				text={ingredient.name}
 				price={ingredient.price}
 				thumbnail={ingredient.image}
-				handleClose={() => handleDeleteIngredient(ingredient.id)}
+				handleClose={() => handleDeleteIngredient(ingredient.uniqueId)}
 			/>
 		</div>
 	);

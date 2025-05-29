@@ -13,6 +13,7 @@ import {
 	setIngredientDetails,
 	deleteIngredientDetails,
 } from '../services/actions';
+import Modal from '../modal/modal';
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -32,6 +33,10 @@ export const BurgerIngredients = (): React.JSX.Element => {
 		burgerIngredientsRequest,
 		burgerIngredientsFailed,
 	} = useSelector((state: RootState) => state.burgerIngredients);
+
+	const currentIngredient = useSelector(
+		(state: RootState) => state.ingredientDetails.ingredientDetails
+	);
 
 	const handleIngredientClick = (ingredient: TIngredient) => {
 		dispatch(setIngredientDetails(ingredient));
@@ -121,9 +126,9 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
 									.filter((item) => item.type === 'bun')
-									.map((ingredient, index) => (
+									.map((ingredient) => (
 										<IngredientItem
-											key={index}
+											key={ingredient._id}
 											ingredient={ingredient}
 											handleIngredientClick={handleIngredientClick}
 										/>
@@ -139,9 +144,9 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
 									.filter((item) => item.type === 'sauce')
-									.map((ingredient, index) => (
+									.map((ingredient) => (
 										<IngredientItem
-											key={index}
+											key={ingredient._id}
 											ingredient={ingredient}
 											handleIngredientClick={handleIngredientClick}
 										/>
@@ -157,16 +162,20 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
 									.filter((item) => item.type === 'main')
-									.map((ingredient, index) => (
+									.map((ingredient) => (
 										<IngredientItem
-											key={index}
+											key={ingredient._id}
 											ingredient={ingredient}
 											handleIngredientClick={handleIngredientClick}
 										/>
 									))}
 							</div>
 						</article>
-						{isOpen && <IngredientDetails onClose={handleCloseDialog} />}
+						{isOpen && (
+							<Modal header='Детали ингредиента' onClose={handleCloseDialog}>
+								<IngredientDetails currentIngredient={currentIngredient} />
+							</Modal>
+						)}
 					</div>
 				</section>
 			)}

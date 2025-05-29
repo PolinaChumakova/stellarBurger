@@ -3,7 +3,6 @@ import {
 	DELETE_BURGER_CONSTRUCTOR,
 	SORT_BURGER_CONSTRUCTOR,
 } from '../actions';
-import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
 	bun: null,
@@ -22,7 +21,6 @@ export function burgerConstructorReducer(state = initialState, action) {
 			const ingredientWithIndexAndId = {
 				...action.payload,
 				index: state.ingredients.length - 1,
-				id: uuidv4(),
 			};
 			return {
 				...state,
@@ -39,7 +37,7 @@ export function burgerConstructorReducer(state = initialState, action) {
 			return {
 				...state,
 				ingredients: state.ingredients.filter(
-					(item) => item.id !== action.payload
+					(item) => item.uniqueId !== action.payload
 				),
 			};
 		case SORT_BURGER_CONSTRUCTOR: {

@@ -18,12 +18,17 @@ import {
 	deleteBurgerConstructor,
 	getOrderDetails,
 } from '../services/actions';
+import Modal from '../modal/modal';
+import { Preloader } from '../preloader/preloader';
 
 export const BurgerConstructor = (): React.JSX.Element => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { bun, ingredients } = useSelector(
 		(state: RootState) => state.burgerConstructor
+	);
+	const { orderDetails, orderDetailsFailed, orderDetailsRequest } = useSelector(
+		(state: RootState) => state.orderDetails
 	);
 
 	const totalCost = useMemo(() => {
@@ -110,7 +115,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 						<div ref={dropRefIng} className={styles.burgerIngredientScroll}>
 							{ingredients.map((item, index) => (
 								<BurgerConstructorIngredient
-									key={index}
+									key={item.uniqueId}
 									ingredient={item}
 									handleDeleteIngredient={handleDeleteIngredient}
 									index={index}
@@ -163,7 +168,21 @@ export const BurgerConstructor = (): React.JSX.Element => {
 						Оформить заказ
 					</Button>
 				</div>
-				{isOpen && <OrderDetails onClose={() => setIsOpen(false)} />}
+				{isOpen && (
+					<Modal onClose={() => setIsOpen(false)}>
+						<>
+							{orderDetailsRequest && <Preloader />}
+							{orderDetailsFailed && (
+								<p className='text text_type_main-medium mt-8 mb-15'>
+									Возникла ошибка
+								</p>
+							)}
+							{orderDetails && (
+								<OrderDetails orderDetails={orderDetails.number} />
+							)}
+						</>
+					</Modal>
+				)}
 			</>
 		</section>
 	);
