@@ -1,34 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import styles from './app.module.css';
-// import { ingredients } from '@utils/ingredients.ts';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.tsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.tsx';
 import { AppHeader } from '@components/app-header/app-header.tsx';
 
+import { getBurgerIngredients } from '@components/services/actions';
+import { rootReducer } from '@components/services/reducers';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 export const App = (): React.JSX.Element => {
-	const [ingredients, setIngredients] = useState([]);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const getProductData = () => {
-			const baseURL = 'https://norma.nomoreparties.space/api/ingredients';
-
-			fetch(baseURL)
-				.then((res) => {
-								  if (res.ok) {
-									  return res.json();
-								  }
-								  return Promise.reject(`Ошибка ${res.status}`);
-							  })
-				.then((data) => {
-					setIngredients(data.data);
-				})
-				.catch(() => {
-					console.log('Произошла ошибка');
-				});
-		};
-
-		getProductData();
-	}, []);
+		dispatch(getBurgerIngredients());
+	}, [dispatch]);
 
 	return (
 		<div className={styles.app}>
@@ -37,12 +27,16 @@ export const App = (): React.JSX.Element => {
 				className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
 				Соберите бургер
 			</h1>
-			{ingredients.length && (
+			<DndProvider backend={HTML5Backend}>
 				<main className={`${styles.main} pl-5 pr-5`}>
-					<BurgerIngredients ingredients={ingredients} />
-					<BurgerConstructor ingredients={ingredients} />
+					<div className={styles.burgerContainer}>
+						<BurgerIngredients />
+					</div>
+					<div className={styles.burgerContainer}>
+						<BurgerConstructor />
+					</div>
 				</main>
-			)}
+			</DndProvider>
 		</div>
 	);
 };
