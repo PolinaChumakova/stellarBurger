@@ -155,7 +155,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 					)}
 				</div>
 
-				<div className={`${styles.buttonActions} mt-10`}>
+				<div className={`${styles.buttonActions} mt-10 mr-8`}>
 					<div className={styles.balance}>
 						<p className='text text_type_digits-medium mr-2'>{totalCost}</p>
 						<CurrencyIcon type='primary' />

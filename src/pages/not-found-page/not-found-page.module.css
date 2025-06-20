@@ -1,0 +1,23 @@
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	text-align: center;
+}
+
+.container404 {
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	height: 85px;
+}
+
+.link {
+	display: flex;
+	color: var(--colors-interface-accent);
+	text-decoration: none;
+}

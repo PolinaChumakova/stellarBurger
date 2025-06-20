@@ -14,10 +14,23 @@
 	list-style-type: none;
 }
 
+.ingredientsScrollContainer {
+	height: 65vh;
+	overflow-y: auto;
+}
+
 .ingredientsContainer {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 24px;
+}
+
+.ingredientLink {
+	display: block;
+	width: 100%;
+	color: inherit;
+	text-align: center;
+	text-decoration: none;
 }
 
 .burgerIngredient {
@@ -28,12 +41,10 @@
 	align-items: center;
 	gap: 4px;
 	width: 100%;
-	text-align: center;
-	cursor: pointer;
 }
 
 .price {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	justify-content: center;
 }

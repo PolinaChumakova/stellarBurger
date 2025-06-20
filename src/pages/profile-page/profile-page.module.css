@@ -1,0 +1,32 @@
+.pageContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	gap: 60px;
+	margin-top: 120px;
+	margin-left: 20vw;
+}
+
+.navContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	gap: 24px;
+}
+
+.link {
+	display: flex;
+	color: var(--text-inactive-color);
+	text-decoration: none;
+}
+
+.link_active {
+	color: var(--text-primary-color);
+	text-decoration: none;
+}
