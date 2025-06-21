@@ -22,13 +22,9 @@ const ResetPasswordPage = () => {
 	useEffect(() => {
 		const isResetPassword = localStorage.getItem('isResetPassword');
 
-		if (!isResetPassword) {
-			navigate('/forgot-password');
+		if (isResetPassword !== 'true') {
+			navigate('/forgot-password', { replace: true });
 		}
-
-		return () => {
-			localStorage.removeItem('isResetPassword');
-		};
 	}, [navigate]);
 
 	const handleResetPassword = () => {
@@ -38,8 +34,8 @@ const ResetPasswordPage = () => {
 		loadResetPassword(password, code)
 			.then((res) => {
 				if (res && res.success) {
-					localStorage.setItem('isResetPassword', 'true');
-					navigate('/reset-password');
+					localStorage.removeItem('isResetPassword');
+					navigate('/login');
 				} else {
 					setError(true);
 				}
@@ -48,8 +44,6 @@ const ResetPasswordPage = () => {
 				setIsLoading(false);
 				setError(true);
 			});
-		localStorage.removeItem('isResetPassword');
-		navigate('/login');
 	};
 
 	return (

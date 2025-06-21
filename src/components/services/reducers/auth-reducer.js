@@ -8,6 +8,7 @@ import {
 	GET_USER_REQUEST,
 	GET_USER_SUCCESS,
 	GET_USER_FAILED,
+	SET_IS_AUTH_CHECKED,
 	UPDATE_USER_REQUEST,
 	UPDATE_USER_SUCCESS,
 	UPDATE_USER_FAILED,
@@ -20,7 +21,7 @@ const initialState = {
 	user: null,
 	isLoading: false,
 	error: null,
-	isAuthenticated: false,
+	isAuthChecked: false,
 };
 
 export function authReducer(state = initialState, action) {
@@ -36,7 +37,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				user: action.payload,
-				isAuthenticated: true,
 				error: null,
 			};
 		case REGISTER_USER_FAILED:
@@ -44,7 +44,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				error: action.payload,
-				isAuthenticated: false,
 				user: null,
 			};
 
@@ -59,7 +58,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				user: action.payload,
-				isAuthenticated: true,
 				error: null,
 			};
 		case LOGIN_USER_FAILED:
@@ -67,7 +65,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				error: action.payload,
-				isAuthenticated: false,
 				user: null,
 			};
 
@@ -82,7 +79,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				user: action.payload,
-				isAuthenticated: true,
 				error: null,
 			};
 		case GET_USER_FAILED:
@@ -90,8 +86,12 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				error: action.payload,
-				isAuthenticated: false,
 				user: null,
+			};
+		case SET_IS_AUTH_CHECKED:
+			return {
+				...state,
+				isAuthChecked: action.payload,
 			};
 
 		case UPDATE_USER_REQUEST:
@@ -125,7 +125,6 @@ export function authReducer(state = initialState, action) {
 				...state,
 				isLoading: false,
 				user: null,
-				isAuthenticated: false,
 				error: null,
 			};
 		case LOGOUT_USER_FAILED:

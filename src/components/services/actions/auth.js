@@ -17,6 +17,7 @@ export const LOGIN_USER_FAILED = 'LOGIN_USER_FAILURE';
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
+export const SET_IS_AUTH_CHECKED = 'SET_IS_AUTH_CHECKED';
 
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
@@ -34,6 +35,8 @@ export function registerUser(email, password, name) {
 		try {
 			const data = await apiRegisterUser(email, password, name);
 			if (data.success) {
+				localStorage.setItem('refreshToken', data.refreshToken);
+				localStorage.setItem('accessToken', data.accessToken);
 				dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
 			} else {
 				dispatch({ type: REGISTER_USER_FAILED });
@@ -52,6 +55,8 @@ export function loginUser(email, password) {
 		try {
 			const data = await apiLoginUser(email, password);
 			if (data.success) {
+				localStorage.setItem('refreshToken', data.refreshToken);
+				localStorage.setItem('accessToken', data.accessToken);
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: data.user });
 			} else {
 				dispatch({ type: LOGIN_USER_FAILED, payload: data.message });
@@ -76,6 +81,27 @@ export function getUser() {
 			}
 		} catch (error) {
 			dispatch({ type: GET_USER_FAILED, payload: error.message });
+		}
+	};
+}
+
+export const setIsAuthChecked = (isAuthChecked) => ({
+	type: SET_IS_AUTH_CHECKED,
+	payload: isAuthChecked,
+});
+
+export function checkUserAuth() {
+	return async (dispatch) => {
+		if (localStorage.getItem('accessToken')) {
+			try {
+				await dispatch(getUser());
+				dispatch(setIsAuthChecked(true));
+			} catch (error) {
+				console.error('Ошибка при проверке аутентификации:', error);
+				dispatch(setIsAuthChecked(true));
+			}
+		} else {
+			dispatch(setIsAuthChecked(true));
 		}
 	};
 }
@@ -106,6 +132,8 @@ export function logoutUser() {
 		try {
 			const data = await apiLogoutUser();
 			if (data.success) {
+				localStorage.removeItem('refreshToken');
+				localStorage.removeItem('accessToken');
 				dispatch({ type: LOGOUT_USER_SUCCESS });
 			} else {
 				dispatch({ type: LOGOUT_USER_FAILED, payload: data.message });

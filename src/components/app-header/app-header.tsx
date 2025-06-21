@@ -11,9 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/types';
 
 export const AppHeader = () => {
-	const { isAuthenticated, user } = useSelector(
-		(state: RootState) => state.auth
-	);
+	const user = useSelector((state: RootState) => state.auth.user);
 
 	return (
 		<header className={styles.header}>
@@ -37,9 +35,22 @@ export const AppHeader = () => {
 							);
 						}}
 					</NavLink>
-					<NavLink to='/feed' className={`${styles.link} ml-10`}>
-						<ListIcon type='secondary' />
-						<p className='text text_type_main-default ml-2'>Лента заказов</p>
+					<NavLink
+						to='/feed'
+						className={({ isActive }) =>
+							`${styles.link} ml-10 ${isActive ? styles.link_active : ''}`
+						}>
+						{({ isActive }) => {
+							const iconType = isActive ? 'primary' : 'secondary';
+							return (
+								<>
+									<ListIcon type={iconType} />
+									<p className='text text_type_main-default ml-2'>
+										Лента заказов
+									</p>
+								</>
+							);
+						}}
 					</NavLink>
 				</div>
 				<div className={styles.logo}>
@@ -54,7 +65,7 @@ export const AppHeader = () => {
 						<>
 							<ProfileIcon type={isActive ? 'primary' : 'secondary'} />
 							<p className='text text_type_main-default ml-2'>
-								{isAuthenticated ? user.email : 'Личный кабинет'}
+								{user && user.name ? user.name : 'Личный кабинет'}
 							</p>
 						</>
 					)}

@@ -2,10 +2,7 @@ export const BASE_URL = 'https://norma.nomoreparties.space/api';
 export const AUTH_URL = 'https://norma.nomoreparties.space/api/auth';
 
 export function checkResponse(res) {
-	if (res.ok) {
-		return res.json();
-	}
-	return Promise.reject(`Ошибка ${res.status}`);
+	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
 export const refreshToken = () => {
@@ -114,5 +111,5 @@ export const apiLogoutUser = () => {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
-	});
+	}).then(checkResponse);
 };

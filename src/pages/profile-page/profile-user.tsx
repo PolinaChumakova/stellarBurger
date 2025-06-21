@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -9,57 +9,70 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { RootState } from '@/utils/types';
-import { getUser } from '../../components/services/actions/auth';
+import { updateUser } from '../../components/services/actions/auth';
 
 const ProfileUser = () => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getUser());
-	}, [dispatch]);
-
 	const userAuth = useSelector((state: RootState) => state.auth.user);
 
-	const [userEdit, setUserEdit] = useState(userAuth);
+	const [name, setName] = useState(userAuth.name);
+	const [email, setEmail] = useState(userAuth.email);
+	const [password, setPassword] = useState('');
+
+	const handleClick = () => {
+		dispatch(updateUser(name, email, password));
+	};
+	const handleClose = () => {
+		setName(userAuth.name);
+		setEmail(userAuth.email);
+		setPassword('');
+	};
+	const isEdit =
+		name !== userAuth.name || email !== userAuth.email || password !== '';
 
 	return (
 		<>
 			<Input
 				type={'text'}
 				placeholder={'Имя'}
-				onChange={(e) => setUserEdit({ ...userEdit, name: e.target.value })}
-				value={userEdit?.name}
-				name={'Имя'}
+				onChange={(e) => setName(e.target.value)}
+				value={name}
 				icon='EditIcon'
 			/>
 			<EmailInput
-				onChange={(e) => setUserEdit({ ...userEdit, email: e.target.value })}
-				value={userEdit?.email}
+				onChange={(e) => setEmail(e.target.value)}
+				value={email}
 				name={'email'}
 				isIcon={true}
 			/>
 			<PasswordInput
-				onChange={() => console.log('aaa')}
-				value={''}
+				onChange={(e) => setPassword(e.target.value)}
+				value={password}
 				name={'password'}
 				extraClass='mb-2'
+				icon='EditIcon'
 			/>
-			<div>
-				<Button
-					htmlType='button'
-					type='secondary'
-					size='medium'
-					extraClass='mb-20'>
-					Отмена
-				</Button>
-				<Button
-					htmlType='button'
-					type='primary'
-					size='medium'
-					extraClass='mb-20'>
-					Сохранить
-				</Button>
-			</div>
+			{isEdit && (
+				<div>
+					<Button
+						htmlType='button'
+						type='secondary'
+						size='medium'
+						extraClass='mb-20'
+						onClick={handleClose}>
+						Отмена
+					</Button>
+					<Button
+						htmlType='button'
+						type='primary'
+						size='medium'
+						extraClass='mb-20'
+						onClick={handleClick}>
+						Сохранить
+					</Button>
+				</div>
+			)}
 		</>
 	);
 };

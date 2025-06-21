@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -10,12 +10,15 @@ import {
 import styles from './login-page.module.css';
 
 import { loginUser } from '../../components/services/actions/auth';
+import { RootState } from '@/utils/types';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const user = useSelector((state: RootState) => state.auth.user);
 
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
@@ -25,8 +28,11 @@ const LoginPage = () => {
 		setPassword(e.target.value);
 	};
 
-	const handleClick = () => {
-		dispatch(loginUser(email, password));
+	const handleClick = async () => {
+		await dispatch(loginUser(email, password));
+		if (user) {
+			navigate('/');
+		}
 	};
 
 	return (

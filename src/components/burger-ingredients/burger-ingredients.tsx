@@ -3,12 +3,10 @@ import { useSelector } from 'react-redux';
 
 import styles from './burger-ingredients.module.css';
 
+import { RootState } from '@/utils/types';
 import { Preloader } from '../preloader/preloader';
 import { IngredientItem } from './burger-ingredient';
-import { rootReducer } from '@components/services/reducers';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-
-export type RootState = ReturnType<typeof rootReducer>;
 
 export const BurgerIngredients = (): React.JSX.Element => {
 	const [activeTab, setActiveTab] = useState('bun');

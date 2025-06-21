@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '@utils/types.ts';
@@ -10,6 +11,8 @@ import {
 	ConstructorElement,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../modal/modal';
+import { Preloader } from '../preloader/preloader';
 import OrderDetails from '../order-details/order-details';
 import { BurgerConstructorIngredient } from './burger-constructor-ingredient';
 
@@ -18,11 +21,11 @@ import {
 	deleteBurgerConstructor,
 	getOrderDetails,
 } from '../services/actions';
-import Modal from '../modal/modal';
-import { Preloader } from '../preloader/preloader';
 
 export const BurgerConstructor = (): React.JSX.Element => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { bun, ingredients } = useSelector(
 		(state: RootState) => state.burgerConstructor
@@ -54,7 +57,12 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
 	const handleButtonClick = () => {
 		setIsOpen(true);
-		dispatch(getOrderDetails(constructorIds));
+
+		if (localStorage.getItem('accessToken')) {
+			dispatch(getOrderDetails(constructorIds));
+		} else {
+			navigate('/login');
+		}
 	};
 
 	const handleDeleteIngredient = (id) => {
@@ -171,7 +179,16 @@ export const BurgerConstructor = (): React.JSX.Element => {
 				{isOpen && (
 					<Modal onClose={() => setIsOpen(false)}>
 						<>
-							{orderDetailsRequest && <Preloader />}
+							{orderDetailsRequest && (
+								<>
+									{' '}
+									<p className='text text_type_main-medium mt-8 mb-15'>
+										{' '}
+										Оформляем заказ...
+									</p>
+									<Preloader />{' '}
+								</>
+							)}
 							{orderDetailsFailed && (
 								<p className='text text_type_main-medium mt-8 mb-15'>
 									Возникла ошибка
