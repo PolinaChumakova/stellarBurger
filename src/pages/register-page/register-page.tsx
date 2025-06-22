@@ -31,42 +31,45 @@ const RegisterPage = () => {
 		setPassword(e.target.value);
 	};
 
-	const handleClick = () => {
+	const handleClick = (e) => {
+		e.preventDefault();
 		dispatch(registerUser(email, password, name));
 	};
 
 	return (
 		<div className={styles.pageContainer}>
-			<div className={styles.inputContainer}>
-				<h2 className='text text_type_main-medium'>Регистрация</h2>
+			<form className={styles.inputContainer} onSubmit={handleClick}>
+				<h1 className='text text_type_main-medium'>Регистрация</h1>
 				<Input
 					type={'text'}
 					placeholder={'Имя'}
 					onChange={handleNameChange}
 					value={name}
-					name={'Имя'}
+					name={'name'}
+					autoComplete='name'
 				/>
 				<EmailInput
 					onChange={handleEmailChange}
 					value={email}
 					name={'email'}
 					isIcon={false}
+					autoComplete='email'
 				/>
 				<PasswordInput
 					onChange={handlePasswordChange}
 					value={password}
 					name={'password'}
 					extraClass='mb-2'
+					autoComplete='password'
 				/>
 				<Button
-					htmlType='button'
+					htmlType='submit'
 					type='primary'
 					size='medium'
-					extraClass='mb-20'
-					onClick={handleClick}>
+					extraClass='mb-20'>
 					Зарегистрироваться
 				</Button>
-			</div>
+			</form>
 			<div className={styles.linkContainer}>
 				<div className={styles.linkRow}>
 					<p className='text text_type_main-default text_color_inactive'>

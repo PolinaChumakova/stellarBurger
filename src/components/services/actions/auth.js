@@ -132,8 +132,7 @@ export function logoutUser() {
 		try {
 			const data = await apiLogoutUser();
 			if (data.success) {
-				localStorage.removeItem('refreshToken');
-				localStorage.removeItem('accessToken');
+				localStorage.clear();
 				dispatch({ type: LOGOUT_USER_SUCCESS });
 			} else {
 				dispatch({ type: LOGOUT_USER_FAILED, payload: data.message });

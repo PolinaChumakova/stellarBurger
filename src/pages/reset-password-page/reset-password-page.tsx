@@ -27,7 +27,8 @@ const ResetPasswordPage = () => {
 		}
 	}, [navigate]);
 
-	const handleResetPassword = () => {
+	const handleResetPassword = (e) => {
+		e.preventDefault();
 		setIsLoading(true);
 		setError(false);
 
@@ -48,31 +49,32 @@ const ResetPasswordPage = () => {
 
 	return (
 		<div className={styles.pageContainer}>
-			<div className={styles.inputContainer}>
-				<h2 className='text text_type_main-medium'>Восстановление пароля</h2>
+			<form className={styles.inputContainer} onSubmit={handleResetPassword}>
+				<h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 				<PasswordInput
 					onChange={(e) => setPassword(e.target.value)}
 					value={password}
 					name={'password'}
 					extraClass='mb-2'
 					placeholder='Введите новый пароль'
+					autoComplete='password'
 				/>
 				<Input
 					type={'text'}
 					placeholder={'Введите код из письма'}
 					onChange={(e) => setCode(e.target.value)}
 					value={code}
-					name={'Имя'}
+					name={'code'}
+					autoComplete='code'
 				/>
 				{isLoading ? (
 					<Preloader />
 				) : (
 					<Button
-						htmlType='button'
+						htmlType='submit'
 						type='primary'
 						size='medium'
-						extraClass='mb-20'
-						onClick={handleResetPassword}>
+						extraClass='mb-20'>
 						Сохранить
 					</Button>
 				)}
@@ -81,7 +83,7 @@ const ResetPasswordPage = () => {
 						Ошибка при восстановлении пароля
 					</p>
 				)}
-			</div>
+			</form>
 			<div className={styles.linkContainer}>
 				<div className={styles.linkRow}>
 					<p className='text text_type_main-default text_color_inactive'>

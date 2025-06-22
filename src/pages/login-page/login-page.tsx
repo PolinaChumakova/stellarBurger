@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -28,38 +28,43 @@ const LoginPage = () => {
 		setPassword(e.target.value);
 	};
 
-	const handleClick = async () => {
+	const handleClick = async (e) => {
+		e.preventDefault();
 		await dispatch(loginUser(email, password));
+	};
+
+	useEffect(() => {
 		if (user) {
 			navigate('/');
 		}
-	};
+	}, [user, navigate]);
 
 	return (
 		<div className={styles.pageContainer}>
-			<div className={styles.inputContainer}>
-				<h2 className='text text_type_main-medium'> Вход</h2>
+			<form className={styles.inputContainer} onSubmit={handleClick}>
+				<h1 className='text text_type_main-medium'> Вход</h1>
 				<EmailInput
 					onChange={handleEmailChange}
 					value={email}
 					name={'email'}
 					isIcon={false}
+					autoComplete='email'
 				/>
 				<PasswordInput
 					onChange={handlePasswordChange}
 					value={password}
 					name={'password'}
 					extraClass='mb-2'
+					autoComplete='password'
 				/>
 				<Button
-					htmlType='button'
+					htmlType='submit'
 					type='primary'
 					size='medium'
-					extraClass='mb-20'
-					onClick={handleClick}>
+					extraClass='mb-20'>
 					Войти
 				</Button>
-			</div>
+			</form>
 			<div className={styles.linkContainer}>
 				<div className={styles.linkRow}>
 					<p className='text text_type_main-default text_color_inactive'>

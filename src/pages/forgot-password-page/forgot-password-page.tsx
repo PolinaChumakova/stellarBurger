@@ -16,7 +16,8 @@ const ForgotPasswordPage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-	const handleForgotPassword = () => {
+	const handleForgotPassword = (e) => {
+		e.preventDefault();
 		setIsLoading(true);
 		setError(false);
 
@@ -37,24 +38,25 @@ const ForgotPasswordPage = () => {
 
 	return (
 		<div className={styles.pageContainer}>
-			<div className={styles.inputContainer}>
-				<h2 className='text text_type_main-medium'>Восстановление пароля</h2>
+			<form className={styles.inputContainer} onSubmit={handleForgotPassword}>
+				<h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 				<EmailInput
 					onChange={(e) => setEmail(e.target.value)}
 					value={email}
 					name={'email'}
 					isIcon={false}
 					placeholder='Укажите e-mail'
+					autoComplete='email'
 				/>
+
 				{isLoading ? (
 					<Preloader />
 				) : (
 					<Button
-						htmlType='button'
+						htmlType='submit'
 						type='primary'
 						size='medium'
-						extraClass='mb-10'
-						onClick={handleForgotPassword}>
+						extraClass='mb-10'>
 						Восстановить
 					</Button>
 				)}
@@ -63,7 +65,7 @@ const ForgotPasswordPage = () => {
 						Ошибка при восстановлении пароля
 					</p>
 				)}
-			</div>
+			</form>
 			<div className={styles.linkContainer}>
 				<div className={`mt-10 ${styles.linkRow}`}>
 					<p className='text text_type_main-default text_color_inactive'>
