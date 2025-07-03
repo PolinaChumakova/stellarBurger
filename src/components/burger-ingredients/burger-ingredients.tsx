@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 
 import styles from './burger-ingredients.module.css';
 
-import { RootState } from '@/utils/types';
 import { Preloader } from '../preloader/preloader';
 import { IngredientItem } from './burger-ingredient';
+import { RootState, TIngredient } from '@/utils/types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const BurgerIngredients = (): React.JSX.Element => {
@@ -98,8 +98,8 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							</h2>
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
-									.filter((item) => item.type === 'bun')
-									.map((ingredient) => (
+									.filter((item: TIngredient) => item.type === 'bun')
+									.map((ingredient: TIngredient) => (
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}
@@ -115,8 +115,8 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							</h2>
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
-									.filter((item) => item.type === 'sauce')
-									.map((ingredient) => (
+									.filter((item: TIngredient) => item.type === 'sauce')
+									.map((ingredient: TIngredient) => (
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}
@@ -132,8 +132,8 @@ export const BurgerIngredients = (): React.JSX.Element => {
 							</h2>
 							<div className={styles.ingredientsContainer}>
 								{burgerIngredients
-									.filter((item) => item.type === 'main')
-									.map((ingredient) => (
+									.filter((item: TIngredient) => item.type === 'main')
+									.map((ingredient: TIngredient) => (
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}

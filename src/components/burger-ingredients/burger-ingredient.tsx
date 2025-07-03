@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
-import { RootState } from '@/utils/types';
+import { RootState, TIngredient } from '@/utils/types';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,7 +10,11 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const IngredientItem = ({ ingredient }) => {
+interface IIngredientItemProps {
+	ingredient: TIngredient;
+}
+
+export const IngredientItem: FC<IIngredientItemProps> = ({ ingredient }) => {
 	const location = useLocation();
 
 	const [{ isDragging }, dragRef] = useDrag({
@@ -29,7 +33,9 @@ export const IngredientItem = ({ ingredient }) => {
 		if (ingredient.type === 'bun') {
 			return bun && bun._id === ingredient._id ? 2 : 0;
 		}
-		return ingredients.filter((item) => item._id === ingredient._id).length;
+		return ingredients.filter(
+			(item: TIngredient) => item._id === ingredient._id
+		).length;
 	}, [bun, ingredients, ingredient._id, ingredient.type]);
 
 	return (

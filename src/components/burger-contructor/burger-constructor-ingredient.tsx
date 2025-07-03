@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
@@ -9,14 +9,19 @@ import {
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { TIngredientWithIndex } from '@utils/types.ts';
+import { TIngredient, TIngredientWithIndex } from '@utils/types.ts';
+// @ts-expect-error Could not find a declaration file
 import { sortBurgerConstructor } from '../services/actions';
 
-export const BurgerConstructorIngredient = ({
-	ingredient,
-	handleDeleteIngredient,
-	index,
-}) => {
+interface IBurgerConstructorIngredientProps {
+	ingredient: TIngredient;
+	handleDeleteIngredient: (index: number) => void;
+	index: number;
+}
+
+export const BurgerConstructorIngredient: FC<
+	IBurgerConstructorIngredientProps
+> = ({ ingredient, handleDeleteIngredient, index }) => {
 	const dispatch = useDispatch();
 
 	const dropRefCurrentIng = useRef<HTMLDivElement>(null);

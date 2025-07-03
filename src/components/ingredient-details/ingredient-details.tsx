@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './ingredient-details.module.css';
 
-import { RootState } from '@/utils/types';
+import { RootState, TIngredient } from '@/utils/types';
 import { Preloader } from '../preloader/preloader';
-import { getBurgerIngredients } from '@components/services/actions';
+
+// @ts-expect-error Could not find a declaration file
+import { getBurgerIngredients } from '@/components/services/actions';
 
 const IngredientDetails = () => {
 	const dispatch = useDispatch();
@@ -23,7 +25,7 @@ const IngredientDetails = () => {
 	}, [dispatch, burgerIngredients]);
 
 	const currentIngredient = burgerIngredients?.find(
-		(ing) => ing._id === ingredientId
+		(ing: TIngredient) => ing._id === ingredientId
 	);
 
 	if (

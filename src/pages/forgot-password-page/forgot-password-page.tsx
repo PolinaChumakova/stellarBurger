@@ -16,7 +16,7 @@ const ForgotPasswordPage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-	const handleForgotPassword = (e) => {
+	const handleForgotPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
 		setError(false);

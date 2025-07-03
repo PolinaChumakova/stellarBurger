@@ -1,10 +1,10 @@
 import styles from './modal-overlay.module.css';
 
-type ModalOverlayProps = {
+type TModalOverlayProps = {
 	onClose: () => void;
 };
 
-const ModalOverlay = ({ onClose }: ModalOverlayProps) => {
+const ModalOverlay = ({ onClose }: TModalOverlayProps) => {
 	const handleKeyDown = (event: React.KeyboardEvent) => {
 		if (event.key === 'Escape' || event.key === 'Esc') {
 			onClose();

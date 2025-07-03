@@ -7,7 +7,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
 import { App } from '@components/app/app.tsx';
-import { rootReducer } from '@components/services/reducers';
+
+// @ts-expect-error Could not find a declaration file
+import { rootReducer } from '@/components/services/reducers';
 
 interface WindowWithReduxDevtools extends Window {
 	__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

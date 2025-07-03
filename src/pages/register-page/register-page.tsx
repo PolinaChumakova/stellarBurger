@@ -10,6 +10,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register-page.module.css';
 
+// @ts-expect-error Could not find a declaration file
 import { registerUser } from '../../components/services/actions/auth';
 
 const RegisterPage = () => {
@@ -19,19 +20,19 @@ const RegisterPage = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleNameChange = (e) => {
+	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setName(e.target.value);
 	};
 
-	const handleEmailChange = (e) => {
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
 	};
 
-	const handlePasswordChange = (e) => {
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value);
 	};
 
-	const handleClick = (e) => {
+	const handleClick = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(registerUser(email, password, name));
 	};

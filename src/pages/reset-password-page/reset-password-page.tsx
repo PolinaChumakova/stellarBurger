@@ -27,7 +27,7 @@ const ResetPasswordPage = () => {
 		}
 	}, [navigate]);
 
-	const handleResetPassword = (e) => {
+	const handleResetPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
 		setError(false);

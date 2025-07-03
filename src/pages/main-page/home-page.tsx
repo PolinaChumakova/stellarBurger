@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { getBurgerIngredients } from '@components/services/actions';
+// @ts-expect-error Could not find a declaration file
+import { getBurgerIngredients } from '@/components/services/actions';
 import { BurgerConstructor } from '@/components/burger-contructor/burger-constructor';
 import { BurgerIngredients } from '@/components/burger-ingredients/burger-ingredients';
 

@@ -10,6 +10,7 @@ import {
 import styles from './profile-page.module.css';
 
 import { RootState } from '@/utils/types';
+// @ts-expect-error Could not find a declaration file
 import { updateUser } from '../../components/services/actions/auth';
 
 const ProfileUser = () => {
@@ -21,7 +22,7 @@ const ProfileUser = () => {
 	const [email, setEmail] = useState(userAuth.email);
 	const [password, setPassword] = useState('');
 
-	const handleClick = (e) => {
+	const handleClick = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(updateUser(name, email, password));
 	};
