@@ -1,6 +1,39 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './ingredient-details.module.css';
 
-const IngredientDetails = ({ currentIngredient }) => {
+import { RootState } from '@/utils/types';
+import { Preloader } from '../preloader/preloader';
+import { getBurgerIngredients } from '@components/services/actions';
+
+const IngredientDetails = () => {
+	const dispatch = useDispatch();
+
+	const { ingredientId } = useParams();
+	const { burgerIngredients } = useSelector(
+		(state: RootState) => state.burgerIngredients
+	);
+
+	useEffect(() => {
+		if (!burgerIngredients || burgerIngredients.length === 0) {
+			dispatch(getBurgerIngredients());
+		}
+	}, [dispatch, burgerIngredients]);
+
+	const currentIngredient = burgerIngredients?.find(
+		(ing) => ing._id === ingredientId
+	);
+
+	if (
+		!currentIngredient ||
+		!burgerIngredients ||
+		burgerIngredients.length === 0
+	) {
+		return <Preloader />;
+	}
+
 	return (
 		<div className={styles.ingredientContent}>
 			<img

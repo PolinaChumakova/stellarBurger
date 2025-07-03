@@ -14,8 +14,7 @@ export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
 export const GET_ORDER_DETAILS_FAILED = 'GET_ORDER_DETAILS_FAILED';
 
 import { v4 as uuidv4 } from 'uuid';
-import { BASE_URL } from '@utils/api';
-import { checkResponse } from '@utils/functions';
+import { BASE_URL, checkResponse } from '@utils/api';
 
 export function getBurgerIngredients() {
 	return (dispatch) => {
@@ -81,6 +80,7 @@ export function getOrderDetails(ingredientIds) {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				authorization: localStorage.getItem('accessToken'),
 			},
 			body: JSON.stringify({ ingredients: ingredientIds }),
 		})

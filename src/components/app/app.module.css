@@ -6,7 +6,13 @@
 	background-color: var(--background-alt);
 }
 
-.title {
+.pageContainer {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+/* .title {
 	align-self: center;
 	width: 100%;
 	max-width: 1260px;
@@ -24,4 +30,4 @@
 .burgerContainer {
 	clear: both;
 	overflow: hidden;
-}
+} */

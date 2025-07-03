@@ -1,26 +1,14 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styles from './burger-ingredients.module.css';
 
-import { TIngredient } from '@utils/types.ts';
+import { RootState } from '@/utils/types';
 import { Preloader } from '../preloader/preloader';
 import { IngredientItem } from './burger-ingredient';
-import { rootReducer } from '@components/services/reducers';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import {
-	setIngredientDetails,
-	deleteIngredientDetails,
-} from '../services/actions';
-import Modal from '../modal/modal';
-
-export type RootState = ReturnType<typeof rootReducer>;
 
 export const BurgerIngredients = (): React.JSX.Element => {
-	const dispatch = useDispatch();
-
-	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [activeTab, setActiveTab] = useState('bun');
 
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -33,20 +21,6 @@ export const BurgerIngredients = (): React.JSX.Element => {
 		burgerIngredientsRequest,
 		burgerIngredientsFailed,
 	} = useSelector((state: RootState) => state.burgerIngredients);
-
-	const currentIngredient = useSelector(
-		(state: RootState) => state.ingredientDetails.ingredientDetails
-	);
-
-	const handleIngredientClick = (ingredient: TIngredient) => {
-		dispatch(setIngredientDetails(ingredient));
-		setIsOpen(true);
-	};
-
-	const handleCloseDialog = () => {
-		setIsOpen(false);
-		dispatch(deleteIngredientDetails());
-	};
 
 	const handleScroll = () => {
 		if (
@@ -115,8 +89,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 						</ul>
 					</nav>
 					<div
-						className='mt-10'
-						style={{ height: '65vh', overflowY: 'auto' }}
+						className={`mt-10 ${styles.ingredientsScrollContainer}`}
 						ref={scrollContainerRef}
 						onScroll={handleScroll}>
 						<article>
@@ -130,7 +103,6 @@ export const BurgerIngredients = (): React.JSX.Element => {
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}
-											handleIngredientClick={handleIngredientClick}
 										/>
 									))}
 							</div>
@@ -148,7 +120,6 @@ export const BurgerIngredients = (): React.JSX.Element => {
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}
-											handleIngredientClick={handleIngredientClick}
 										/>
 									))}
 							</div>
@@ -166,16 +137,10 @@ export const BurgerIngredients = (): React.JSX.Element => {
 										<IngredientItem
 											key={ingredient._id}
 											ingredient={ingredient}
-											handleIngredientClick={handleIngredientClick}
 										/>
 									))}
 							</div>
 						</article>
-						{isOpen && (
-							<Modal header='Детали ингредиента' onClose={handleCloseDialog}>
-								<IngredientDetails currentIngredient={currentIngredient} />
-							</Modal>
-						)}
 					</div>
 				</section>
 			)}

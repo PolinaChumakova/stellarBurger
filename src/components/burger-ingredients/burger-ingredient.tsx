@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { RootState } from '@/utils/types';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 import styles from './burger-ingredients.module.css';
 import {
@@ -9,7 +10,9 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const IngredientItem = ({ ingredient, handleIngredientClick }) => {
+export const IngredientItem = ({ ingredient }) => {
+	const location = useLocation();
+
 	const [{ isDragging }, dragRef] = useDrag({
 		type: ingredient.type === 'bun' ? 'bun' : 'ingredient',
 		item: ingredient,
@@ -35,22 +38,24 @@ export const IngredientItem = ({ ingredient, handleIngredientClick }) => {
 			className={styles.burgerIngredient}
 			role='button'
 			tabIndex={0}
-			onKeyDown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					handleIngredientClick(ingredient);
-				}
-			}}
-			onClick={() => handleIngredientClick(ingredient)}
 			style={{ opacity: isDragging ? 0.5 : 1 }}>
-			<img src={ingredient.image} alt={ingredient.name} />
-			<div className={styles.price}>
-				<p className='text text_type_digits-default mr-2'>{ingredient.price}</p>
-				<CurrencyIcon type='primary' />
-			</div>
-			{ingredient.name}
-			{counts !== 0 && (
-				<Counter count={counts} size='default' extraClass='m-1' />
-			)}
+			<Link
+				key={ingredient._id}
+				to={`/ingredients/${ingredient._id}`}
+				state={{ background: location }}
+				className={styles.ingredientLink}>
+				<img src={ingredient.image} alt={ingredient.name} />
+				<div className={styles.price}>
+					<p className='text text_type_digits-default mr-2'>
+						{ingredient.price}
+					</p>
+					<CurrencyIcon type='primary' />
+				</div>
+				{ingredient.name}
+				{counts !== 0 && (
+					<Counter count={counts} size='default' extraClass='m-1' />
+				)}
+			</Link>
 		</div>
 	);
 };
