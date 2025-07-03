@@ -1,4 +1,5 @@
-import { rootReducer } from '@components/services/reducers';
+// @ts-expect-error Could not find a declaration file
+import { rootReducer } from '@/components/services/reducers';
 
 export type TIngredient = {
 	_id: string;
@@ -13,6 +14,7 @@ export type TIngredient = {
 	image_large: string;
 	image_mobile: string;
 	__v: number;
+	uniqueId: number;
 };
 
 export type TIngredientWithIndex = TIngredient & {

@@ -9,6 +9,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css';
 
+// @ts-expect-error Could not find a declaration file
 import { loginUser } from '../../components/services/actions/auth';
 import { RootState } from '@/utils/types';
 
@@ -20,15 +21,15 @@ const LoginPage = () => {
 	const [password, setPassword] = useState('');
 	const user = useSelector((state: RootState) => state.auth.user);
 
-	const handleEmailChange = (e) => {
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
 	};
 
-	const handlePasswordChange = (e) => {
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value);
 	};
 
-	const handleClick = async (e) => {
+	const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await dispatch(loginUser(email, password));
 	};

@@ -1,7 +1,12 @@
+import { FC } from 'react';
 import iconCheck from './img/iconCheck.png';
 import styles from './order-details.module.css';
 
-const OrderDetails = ({ orderDetails }) => {
+interface IOrderDetailsProps {
+	orderDetails: number;
+}
+
+const OrderDetails: FC<IOrderDetailsProps> = ({ orderDetails }) => {
 	return (
 		<div className={styles.modalContent}>
 			<p

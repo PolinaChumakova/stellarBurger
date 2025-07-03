@@ -1,7 +1,7 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 export const AUTH_URL = 'https://norma.nomoreparties.space/api/auth';
 
-export function checkResponse(res) {
+export function checkResponse(res: Response) {
 	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
@@ -30,14 +30,18 @@ export const refreshToken = () => {
 	);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (
+	url: string,
+	options: RequestInit
+): Promise<unknown> => {
 	try {
 		const res = await fetch(url, options);
 		return await checkResponse(res);
 	} catch (err) {
 		if (err instanceof Error && err.message === 'jwt expired') {
 			const refreshData = await refreshToken(); //обновляем токен
-			options.headers.authorization = refreshData.accessToken;
+			(options.headers as Record<string, string>).authorization =
+				refreshData.accessToken;
 			const res = await fetch(url, options); //повторяем запрос
 			return await checkResponse(res);
 		} else {
@@ -46,14 +50,14 @@ export const fetchWithRefresh = async (url, options) => {
 	}
 };
 
-export const loadForgotPassword = (email) =>
+export const loadForgotPassword = (email: string) =>
 	fetch(`${BASE_URL}/password-reset`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ email: email }),
 	}).then(checkResponse);
 
-export const loadResetPassword = (password, token) =>
+export const loadResetPassword = (password: string, token: string) =>
 	fetch(`${BASE_URL}/password-reset/reset`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -63,7 +67,11 @@ export const loadResetPassword = (password, token) =>
 		}),
 	}).then(checkResponse);
 
-export const apiRegisterUser = (email, password, name) => {
+export const apiRegisterUser = (
+	email: string,
+	password: string,
+	name: string
+) => {
 	return fetchWithRefresh(`${AUTH_URL}/register`, {
 		method: 'POST',
 		headers: {
@@ -73,7 +81,7 @@ export const apiRegisterUser = (email, password, name) => {
 	});
 };
 
-export const apiLoginUser = (email, password) => {
+export const apiLoginUser = (email: string, password: string) => {
 	return fetchWithRefresh(`${AUTH_URL}/login`, {
 		method: 'POST',
 		headers: {
@@ -88,17 +96,21 @@ export const apiGetUser = () => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			authorization: localStorage.getItem('accessToken'),
+			authorization: localStorage.getItem('accessToken') || '',
 		},
 	});
 };
 
-export const apiUpdateUser = (name, email, password) => {
+export const apiUpdateUser = (
+	name: string,
+	email: string,
+	password: string
+) => {
 	return fetchWithRefresh(`${AUTH_URL}/user`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
-			authorization: localStorage.getItem('accessToken'),
+			authorization: localStorage.getItem('accessToken') || '',
 		},
 		body: JSON.stringify({ name, email, password }),
 	});

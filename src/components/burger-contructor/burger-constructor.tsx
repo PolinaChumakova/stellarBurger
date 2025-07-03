@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '@utils/types.ts';
+import { RootState, TIngredient } from '@utils/types.ts';
 import styles from './burger-constructor.module.css';
 import {
 	Button,
@@ -16,6 +16,7 @@ import { Preloader } from '../preloader/preloader';
 import OrderDetails from '../order-details/order-details';
 import { BurgerConstructorIngredient } from './burger-constructor-ingredient';
 
+// @ts-expect-error Could not find a declaration file
 import {
 	setBurgerConstructor,
 	deleteBurgerConstructor,
@@ -36,7 +37,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
 	const totalCost = useMemo(() => {
 		const ingredientsSum =
-			ingredients?.reduce((sum, ing) => sum + (ing.price || 0), 0) || 0;
+			ingredients?.reduce(
+				(sum: number, ing: TIngredient) => sum + (ing.price || 0),
+				0
+			) || 0;
 		const bunPrice = bun?.price || 0;
 		return ingredientsSum + bunPrice * 2;
 	}, [ingredients, bun]);
@@ -46,7 +50,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		bun && ingredientIds.push(bun._id);
 
 		const ingredientIdsFromIngredients = ingredients?.map(
-			(ingredient) => ingredient._id
+			(ingredient: TIngredient) => ingredient._id
 		);
 		ingredientIds.push(...ingredientIdsFromIngredients);
 
@@ -65,7 +69,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		}
 	};
 
-	const handleDeleteIngredient = (id) => {
+	const handleDeleteIngredient = (id: number) => {
 		dispatch(deleteBurgerConstructor(id));
 	};
 
@@ -121,7 +125,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 					)}
 					{ingredients.length > 0 ? (
 						<div ref={dropRefIng} className={styles.burgerIngredientScroll}>
-							{ingredients.map((item, index) => (
+							{ingredients.map((item: TIngredient, index: number) => (
 								<BurgerConstructorIngredient
 									key={item.uniqueId}
 									ingredient={item}
