@@ -1,6 +1,17 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 export const AUTH_URL = 'https://norma.nomoreparties.space/api/auth';
 
+interface ILoginResponse {
+	success: boolean;
+	user: {
+		email: string;
+		name: string;
+	};
+	message: string;
+	refreshToken: string;
+	accessToken: string;
+}
+
 export function checkResponse(res: Response) {
 	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
@@ -30,10 +41,10 @@ export const refreshToken = () => {
 	);
 };
 
-export const fetchWithRefresh = async (
+export const fetchWithRefresh = async <T>(
 	url: string,
 	options: RequestInit
-): Promise<unknown> => {
+): Promise<T> => {
 	try {
 		const res = await fetch(url, options);
 		return await checkResponse(res);
@@ -43,7 +54,7 @@ export const fetchWithRefresh = async (
 			(options.headers as Record<string, string>).authorization =
 				refreshData.accessToken;
 			const res = await fetch(url, options); //повторяем запрос
-			return await checkResponse(res);
+			return (await checkResponse(res)) as T;
 		} else {
 			return Promise.reject(err);
 		}
@@ -72,7 +83,7 @@ export const apiRegisterUser = (
 	password: string,
 	name: string
 ) => {
-	return fetchWithRefresh(`${AUTH_URL}/register`, {
+	return fetchWithRefresh<ILoginResponse>(`${AUTH_URL}/register`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -82,7 +93,7 @@ export const apiRegisterUser = (
 };
 
 export const apiLoginUser = (email: string, password: string) => {
-	return fetchWithRefresh(`${AUTH_URL}/login`, {
+	return fetchWithRefresh<ILoginResponse>(`${AUTH_URL}/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -92,7 +103,7 @@ export const apiLoginUser = (email: string, password: string) => {
 };
 
 export const apiGetUser = () => {
-	return fetchWithRefresh(`${AUTH_URL}/user`, {
+	return fetchWithRefresh<ILoginResponse>(`${AUTH_URL}/user`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -106,7 +117,7 @@ export const apiUpdateUser = (
 	email: string,
 	password: string
 ) => {
-	return fetchWithRefresh(`${AUTH_URL}/user`, {
+	return fetchWithRefresh<ILoginResponse>(`${AUTH_URL}/user`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',

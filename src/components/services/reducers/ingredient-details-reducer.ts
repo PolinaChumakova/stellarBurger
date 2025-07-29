@@ -1,10 +1,17 @@
-import { GET_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS } from '../actions';
+import {
+	GET_INGREDIENT_DETAILS,
+	DELETE_INGREDIENT_DETAILS,
+	TBurgersActions,
+} from '../actions';
 
 const initialState = {
 	ingredientDetails: null,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (
+	state = initialState,
+	action: TBurgersActions
+) => {
 	switch (action.type) {
 		case GET_INGREDIENT_DETAILS: {
 			return {

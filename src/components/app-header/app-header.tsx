@@ -7,8 +7,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/types';
+import { useSelector } from '@/utils/hooks';
 
 export const AppHeader = () => {
 	const user = useSelector((state: RootState) => state.auth.user);

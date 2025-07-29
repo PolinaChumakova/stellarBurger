@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import styles from './burger-ingredients.module.css';
 
@@ -7,6 +6,7 @@ import { Preloader } from '../preloader/preloader';
 import { IngredientItem } from './burger-ingredient';
 import { RootState, TIngredient } from '@/utils/types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from '@/utils/hooks';
 
 export const BurgerIngredients = (): React.JSX.Element => {
 	const [activeTab, setActiveTab] = useState('bun');

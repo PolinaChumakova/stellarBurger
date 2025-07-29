@@ -2,6 +2,7 @@ import {
 	GET_ORDER_DETAILS_FAILED,
 	GET_ORDER_DETAILS_REQUEST,
 	GET_ORDER_DETAILS_SUCCESS,
+	TBurgersActions,
 } from '../actions';
 
 const initialState = {
@@ -10,7 +11,10 @@ const initialState = {
 	orderDetails: null,
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (
+	state = initialState,
+	action: TBurgersActions
+) => {
 	switch (action.type) {
 		case GET_ORDER_DETAILS_REQUEST: {
 			return {

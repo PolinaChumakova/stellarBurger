@@ -1,6 +1,6 @@
+import { useSelector } from '@/utils/hooks';
 import { RootState } from '@/utils/types';
 import { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface IProtectedProps {

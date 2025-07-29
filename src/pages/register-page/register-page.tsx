@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 import {
 	Button,
@@ -10,8 +10,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register-page.module.css';
 
-// @ts-expect-error Could not find a declaration file
 import { registerUser } from '../../components/services/actions/auth';
+import { useDispatch } from '@/utils/hooks';
 
 const RegisterPage = () => {
 	const dispatch = useDispatch();

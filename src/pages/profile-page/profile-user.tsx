@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -9,30 +8,29 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-page.module.css';
 
-import { RootState } from '@/utils/types';
-// @ts-expect-error Could not find a declaration file
 import { updateUser } from '../../components/services/actions/auth';
+import { useDispatch, useSelector } from '@/utils/hooks';
 
 const ProfileUser = () => {
 	const dispatch = useDispatch();
 
-	const userAuth = useSelector((state: RootState) => state.auth.user);
+	const userAuth = useSelector((state) => state.auth.user);
 
-	const [name, setName] = useState(userAuth.name);
-	const [email, setEmail] = useState(userAuth.email);
+	const [name, setName] = useState(userAuth?.name);
+	const [email, setEmail] = useState(userAuth?.email);
 	const [password, setPassword] = useState('');
 
 	const handleClick = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(updateUser(name, email, password));
+		name && email && dispatch(updateUser(name, email, password));
 	};
 	const handleClose = () => {
-		setName(userAuth.name);
-		setEmail(userAuth.email);
+		setName(userAuth?.name);
+		setEmail(userAuth?.email);
 		setPassword('');
 	};
 	const isEdit =
-		name !== userAuth.name || email !== userAuth.email || password !== '';
+		name !== userAuth?.name || email !== userAuth?.email || password !== '';
 
 	return (
 		<>
@@ -41,14 +39,14 @@ const ProfileUser = () => {
 					type={'text'}
 					placeholder={'Имя'}
 					onChange={(e) => setName(e.target.value)}
-					value={name}
+					value={name || ''}
 					icon='EditIcon'
 					name={'name'}
 					autoComplete='name'
 				/>
 				<EmailInput
 					onChange={(e) => setEmail(e.target.value)}
-					value={email}
+					value={email || ''}
 					name={'email'}
 					isIcon={true}
 					autoComplete='email'

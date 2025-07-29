@@ -15,7 +15,20 @@ import {
 	LOGOUT_USER_REQUEST,
 	LOGOUT_USER_SUCCESS,
 	LOGOUT_USER_FAILED,
+	TAuthActions,
 } from '../actions/auth';
+
+interface User {
+	name: string;
+	email: string;
+}
+
+type TInitialState = {
+	user: User | null;
+	isLoading: boolean;
+	error: string | null;
+	isAuthChecked: boolean;
+};
 
 const initialState = {
 	user: null,
@@ -24,7 +37,10 @@ const initialState = {
 	isAuthChecked: false,
 };
 
-export function authReducer(state = initialState, action) {
+export function authReducer(
+	state = initialState,
+	action: TAuthActions
+): TInitialState {
 	switch (action.type) {
 		case REGISTER_USER_REQUEST:
 			return {
@@ -43,7 +59,7 @@ export function authReducer(state = initialState, action) {
 			return {
 				...state,
 				isLoading: false,
-				error: action.payload,
+				// error: action.payload,
 				user: null,
 			};
 

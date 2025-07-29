@@ -18,7 +18,6 @@ import {
 } from '@/pages';
 import Modal from '../modal/modal';
 
-// @ts-expect-error Could not find a declaration file
 import { checkUserAuth } from '@/components/services/actions/auth';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 

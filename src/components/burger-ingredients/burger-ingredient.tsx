@@ -1,7 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { RootState, TIngredient } from '@/utils/types';
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import styles from './burger-ingredients.module.css';
@@ -9,6 +8,7 @@ import {
 	Counter,
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from '@/utils/hooks';
 
 interface IIngredientItemProps {
 	ingredient: TIngredient;

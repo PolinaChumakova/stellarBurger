@@ -1,7 +1,9 @@
+import { TIngredient } from '@/utils/types';
 import {
 	GET_BURGER_CONSTRUCTOR,
 	DELETE_BURGER_CONSTRUCTOR,
 	SORT_BURGER_CONSTRUCTOR,
+	TBurgersActions,
 } from '../actions';
 
 const initialState = {
@@ -9,7 +11,10 @@ const initialState = {
 	ingredients: [],
 };
 
-export function burgerConstructorReducer(state = initialState, action) {
+export function burgerConstructorReducer(
+	state = initialState,
+	action: TBurgersActions
+) {
 	switch (action.type) {
 		case GET_BURGER_CONSTRUCTOR: {
 			if (action.payload.type === 'bun') {
@@ -37,7 +42,7 @@ export function burgerConstructorReducer(state = initialState, action) {
 			return {
 				...state,
 				ingredients: state.ingredients.filter(
-					(item) => item.uniqueId !== action.payload
+					(item: TIngredient) => item.uniqueId !== action.payload
 				),
 			};
 		case SORT_BURGER_CONSTRUCTOR: {

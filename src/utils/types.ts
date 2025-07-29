@@ -1,5 +1,9 @@
-// @ts-expect-error Could not find a declaration file
 import { rootReducer } from '@/components/services/reducers';
+
+import { store } from '@/main';
+import { ThunkAction } from 'redux-thunk';
+import { TBurgersActions } from '@/components/services/actions';
+import { TAuthActions } from '@/components/services/actions/auth';
 
 export type TIngredient = {
 	_id: string;
@@ -14,7 +18,7 @@ export type TIngredient = {
 	image_large: string;
 	image_mobile: string;
 	__v: number;
-	uniqueId: number;
+	uniqueId: string;
 };
 
 export type TIngredientWithIndex = TIngredient & {
@@ -22,3 +26,14 @@ export type TIngredientWithIndex = TIngredient & {
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+export type TAuthAndBurgersActions = TAuthActions | TBurgersActions;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+	ReturnType,
+	RootState,
+	undefined,
+	TAuthAndBurgersActions
+>;
+
+export type AppDispatch = typeof store.dispatch;

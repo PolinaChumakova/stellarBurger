@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState, TIngredient } from '@utils/types.ts';
 import styles from './burger-constructor.module.css';
@@ -16,12 +15,12 @@ import { Preloader } from '../preloader/preloader';
 import OrderDetails from '../order-details/order-details';
 import { BurgerConstructorIngredient } from './burger-constructor-ingredient';
 
-// @ts-expect-error Could not find a declaration file
 import {
 	setBurgerConstructor,
 	deleteBurgerConstructor,
 	getOrderDetails,
 } from '../services/actions';
+import { useDispatch, useSelector } from '@/utils/hooks';
 
 export const BurgerConstructor = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -69,13 +68,13 @@ export const BurgerConstructor = (): React.JSX.Element => {
 		}
 	};
 
-	const handleDeleteIngredient = (id: number) => {
+	const handleDeleteIngredient = (id: string) => {
 		dispatch(deleteBurgerConstructor(id));
 	};
 
 	const [{ isOverBun }, dropRefBun] = useDrop({
 		accept: 'bun',
-		drop: (item) => {
+		drop: (item: TIngredient) => {
 			dispatch(setBurgerConstructor(item));
 		},
 		collect: (monitor) => ({
@@ -86,7 +85,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
 	const [{ isOverIng }, dropRefIng] = useDrop({
 		accept: 'ingredient',
-		drop: (item) => {
+		drop: (item: TIngredient) => {
 			dispatch(setBurgerConstructor(item));
 		},
 		collect: (monitor) => ({
@@ -198,9 +197,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 									Возникла ошибка
 								</p>
 							)}
-							{orderDetails && (
-								<OrderDetails orderDetails={orderDetails.number} />
-							)}
+							{orderDetails && <OrderDetails orderDetails={orderDetails} />}
 						</>
 					</Modal>
 				)}
