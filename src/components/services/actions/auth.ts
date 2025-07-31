@@ -186,8 +186,7 @@ export const setIsAuthChecked = (isAuthChecked: boolean) => ({
 	payload: isAuthChecked,
 });
 
-export const checkUserAuth: AppThunk = () => async (dispatch: AppDispatch) => {
-	//return async (dispatch: (action: TAuthActions) => void) => {
+export const checkUserAuth = (): AppThunk => async (dispatch: AppDispatch) => {
 	if (localStorage.getItem('accessToken')) {
 		try {
 			await dispatch(getUser());
@@ -199,7 +198,6 @@ export const checkUserAuth: AppThunk = () => async (dispatch: AppDispatch) => {
 	} else {
 		dispatch(setIsAuthChecked(true));
 	}
-	//};
 };
 
 export const updateUser =
@@ -220,8 +218,7 @@ export const updateUser =
 		}
 	};
 
-export const logoutUser: AppThunk = () => async (dispatch: AppDispatch) => {
-	//return async (dispatch: (action: TAuthActions) => void) => {
+export const logoutUser = (): AppThunk => async (dispatch: AppDispatch) => {
 	dispatch({
 		type: LOGOUT_USER_REQUEST,
 	});
@@ -236,5 +233,4 @@ export const logoutUser: AppThunk = () => async (dispatch: AppDispatch) => {
 	} catch (error: unknown) {
 		dispatch({ type: LOGOUT_USER_FAILED, payload: error });
 	}
-	//};
 };

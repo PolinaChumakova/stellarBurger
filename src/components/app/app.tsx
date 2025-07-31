@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import styles from './app.module.css';
+import { FeedBurgers } from '../feed-burgers/feed-burgers';
 import { AppHeader } from '@components/app-header/app-header.tsx';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 
 import {
 	HomePage,
+	FeedPage,
 	LoginPage,
 	ProfileUser,
 	ProfilePage,
@@ -20,6 +21,9 @@ import Modal from '../modal/modal';
 
 import { checkUserAuth } from '@/components/services/actions/auth';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useDispatch } from '@/utils/hooks';
+import FeedDetails from '../feed-details/feed-details';
+import { getBurgerIngredients } from '../services/actions';
 
 export const App = (): React.JSX.Element => {
 	const location = useLocation();
@@ -29,6 +33,7 @@ export const App = (): React.JSX.Element => {
 
 	useEffect(() => {
 		dispatch(checkUserAuth());
+		dispatch(getBurgerIngredients());
 	}, [dispatch]);
 
 	const handleModalClose = () => {
@@ -49,23 +54,42 @@ export const App = (): React.JSX.Element => {
 					}
 				/>
 				<Route
+					path='/feed/:orderNumber'
+					element={
+						<div className={styles.pageContainer}>
+							<FeedDetails />
+						</div>
+					}
+				/>
+				<Route
 					path='/login'
 					element={<OnlyUnAuth component={<LoginPage />} />}
 				/>
+				<Route path='/feed' element={<FeedPage />} />
 				<Route
 					path='/profile'
 					element={<OnlyAuth component={<ProfilePage />} />}>
 					<Route index element={<ProfileUser />} />
-					<Route
-						path='orders'
+					<Route path='orders' element={<FeedBurgers isUser={true} />} />
+					{/* <Route
+						path="orders/:orderNumber" 
 						element={
-							<p className='text text_type_main-default mt-4 '>
-								Вы находитесь в разделе истории заказов.
-							</p>
-						}
-					/>
+						<div className={styles.pageContainer}>
+							<FeedDetails />
+						</div>
+					} 
+					/> */}
 					<Route path='logout' element={<></>} />
 				</Route>
+				<Route
+					path='/profile/orders/:orderNumber'
+					element={
+						<div className={styles.pageContainer}>
+							<FeedDetails />
+						</div>
+					}
+				/>
+
 				<Route
 					path='/register'
 					element={<OnlyUnAuth component={<RegisterPage />} />}
@@ -88,6 +112,22 @@ export const App = (): React.JSX.Element => {
 						element={
 							<Modal onClose={handleModalClose}>
 								<IngredientDetails />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/feed/:orderNumber'
+						element={
+							<Modal onClose={handleModalClose}>
+								<FeedDetails />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/profile/orders/:orderNumber'
+						element={
+							<Modal onClose={handleModalClose}>
+								<FeedDetails />
 							</Modal>
 						}
 					/>

@@ -184,12 +184,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 						<>
 							{orderDetailsRequest && (
 								<>
-									{' '}
 									<p className='text text_type_main-medium mt-8 mb-15'>
-										{' '}
 										Оформляем заказ...
 									</p>
-									<Preloader />{' '}
+									<Preloader />
 								</>
 							)}
 							{orderDetailsFailed && (
@@ -197,7 +195,9 @@ export const BurgerConstructor = (): React.JSX.Element => {
 									Возникла ошибка
 								</p>
 							)}
-							{orderDetails && <OrderDetails orderDetails={orderDetails} />}
+							{orderDetails && (
+								<OrderDetails orderDetails={orderDetails.number} />
+							)}
 						</>
 					</Modal>
 				)}

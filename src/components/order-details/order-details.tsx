@@ -9,10 +9,14 @@ interface IOrderDetailsProps {
 const OrderDetails: FC<IOrderDetailsProps> = ({ orderDetails }) => {
 	return (
 		<div className={styles.modalContent}>
-			<p
-				className='text text_type_digits-large '
-				style={{ marginTop: '56px', WebkitTextStroke: '1px #4C4CFF' }}>
-				{orderDetails}
+			<p className='text text_type_digits-large'>
+				{String(orderDetails)
+					.split('')
+					.map((digit, index) => (
+						<span key={index} className={styles.digits}>
+							{digit}
+						</span>
+					))}
 			</p>
 			<p className='text text_type_main-medium mt-8 mb-15'>
 				идентификатор заказа

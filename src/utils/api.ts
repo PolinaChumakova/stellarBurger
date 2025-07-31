@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 export const AUTH_URL = 'https://norma.nomoreparties.space/api/auth';
+export const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
 interface ILoginResponse {
 	success: boolean;

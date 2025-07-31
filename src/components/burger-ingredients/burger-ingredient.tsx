@@ -28,7 +28,7 @@ export const IngredientItem: FC<IIngredientItemProps> = ({ ingredient }) => {
 	const { bun, ingredients } = useSelector(
 		(state: RootState) => state.burgerConstructor
 	);
-
+	<CurrencyIcon type='primary' />;
 	const counts = useMemo(() => {
 		if (ingredient.type === 'bun') {
 			return bun && bun._id === ingredient._id ? 2 : 0;

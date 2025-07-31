@@ -10,12 +10,14 @@ type TInitialState = {
 	burgerIngredientsRequest: boolean;
 	burgerIngredientsFailed: boolean;
 	burgerIngredients: TIngredient[];
+	burgerIngredientsMap: { [key: string]: TIngredient };
 };
 
 const initialState: TInitialState = {
 	burgerIngredientsRequest: false,
 	burgerIngredientsFailed: false,
 	burgerIngredients: [],
+	burgerIngredientsMap: {},
 };
 
 export const burgerIngredientsReducer = (
@@ -31,9 +33,19 @@ export const burgerIngredientsReducer = (
 			};
 		}
 		case GET_BURGER_INGREDIENTS_SUCCESS: {
+			const burgerIngredientsMap: { [key: string]: TIngredient } =
+				action.burgerIngredients.reduce(
+					(acc: { [key: string]: TIngredient }, ingredient: TIngredient) => {
+						acc[ingredient._id] = ingredient;
+						return acc;
+					},
+					{}
+				);
+
 			return {
 				...state,
 				burgerIngredients: action.burgerIngredients,
+				burgerIngredientsMap: burgerIngredientsMap,
 				burgerIngredientsRequest: false,
 			};
 		}

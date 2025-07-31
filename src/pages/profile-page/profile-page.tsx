@@ -1,8 +1,8 @@
-import { useDispatch } from 'react-redux';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 
 import styles from './profile-page.module.css';
 import { logoutUser } from '../../components/services/actions/auth';
+import { useDispatch } from '@/utils/hooks';
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();
