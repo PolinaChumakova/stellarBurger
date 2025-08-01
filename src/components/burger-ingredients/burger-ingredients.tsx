@@ -4,9 +4,9 @@ import styles from './burger-ingredients.module.css';
 
 import { Preloader } from '../preloader/preloader';
 import { IngredientItem } from './burger-ingredient';
-import { RootState, TIngredient } from '@/utils/types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '@/utils/hooks';
+import { TIngredient } from '@/utils/types';
 
 export const BurgerIngredients = (): React.JSX.Element => {
 	const [activeTab, setActiveTab] = useState('bun');
@@ -20,7 +20,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 		burgerIngredients,
 		burgerIngredientsRequest,
 		burgerIngredientsFailed,
-	} = useSelector((state: RootState) => state.burgerIngredients);
+	} = useSelector((state) => state.burgerIngredients);
 
 	const handleScroll = () => {
 		if (

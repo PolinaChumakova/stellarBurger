@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import styles from './ingredient-details.module.css';
 
-import { RootState, TIngredient } from '@/utils/types';
 import { Preloader } from '../preloader/preloader';
 
 import { getBurgerIngredients } from '@/components/services/actions';
 import { useDispatch, useSelector } from '@/utils/hooks';
+import { TIngredient } from '@/utils/types';
 
 const IngredientDetails = () => {
 	const dispatch = useDispatch();
+	const location = useLocation();
+	const isModal = location.state?.background;
 
 	const { ingredientId } = useParams();
-	const { burgerIngredients } = useSelector(
-		(state: RootState) => state.burgerIngredients
-	);
+	const { burgerIngredients } = useSelector((state) => state.burgerIngredients);
 
 	useEffect(() => {
 		if (!burgerIngredients || burgerIngredients.length === 0) {
@@ -37,6 +37,9 @@ const IngredientDetails = () => {
 
 	return (
 		<div className={styles.ingredientContent}>
+			{!isModal && (
+				<p className='text text_type_main-large'>Детали ингредиента</p>
+			)}
 			<img
 				src={currentIngredient?.image}
 				alt={currentIngredient?.name}

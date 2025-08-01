@@ -110,7 +110,7 @@ export const App = (): React.JSX.Element => {
 					<Route
 						path='/ingredients/:ingredientId'
 						element={
-							<Modal onClose={handleModalClose}>
+							<Modal header='Детали ингредиента' onClose={handleModalClose}>
 								<IngredientDetails />
 							</Modal>
 						}
