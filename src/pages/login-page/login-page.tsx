@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -9,9 +9,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css';
 
-// @ts-expect-error Could not find a declaration file
 import { loginUser } from '../../components/services/actions/auth';
-import { RootState } from '@/utils/types';
+import { useDispatch, useSelector } from '@/utils/hooks';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const LoginPage = () => {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const user = useSelector((state: RootState) => state.auth.user);
+	const user = useSelector((state) => state.auth.user);
 
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);

@@ -7,11 +7,10 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/types';
+import { useSelector } from '@/utils/hooks';
 
 export const AppHeader = () => {
-	const user = useSelector((state: RootState) => state.auth.user);
+	const user = useSelector((state) => state.auth.user);
 
 	return (
 		<header className={styles.header}>
@@ -54,7 +53,9 @@ export const AppHeader = () => {
 					</NavLink>
 				</div>
 				<div className={styles.logo}>
-					<Logo />
+					<NavLink to={'/'}>
+						<Logo />
+					</NavLink>
 				</div>
 				<NavLink
 					className={({ isActive }) =>

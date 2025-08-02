@@ -1,0 +1,59 @@
+.title {
+	align-self: center;
+	width: 100%;
+	max-width: 1260px;
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+    gap: 60px;
+	width: 1240px;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.feedAndInfoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 50%;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+
+.numberStatusesContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 36px
+}
+
+.statusContainer {
+    width: 50%;
+}
+
+.numbersContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, auto));
+    grid-auto-flow: column;
+    gap: 8px 16px;
+
+}
+
+.numbersContainer > :nth-child(n + 6) { 
+  grid-column: 1;
+}
+
+.number {
+    color: var(--colors-interface-success)
+}
+
+.digits{ 
+    display: inline-block;
+    text-shadow: 0 0 15px #4C4CFF;
+    -webkit-text-stroke: 0.2px #4C4CFF ;
+}
+
+

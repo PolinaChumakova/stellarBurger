@@ -1,5 +1,4 @@
 import { FC, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
 
@@ -10,12 +9,12 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { TIngredient, TIngredientWithIndex } from '@utils/types.ts';
-// @ts-expect-error Could not find a declaration file
 import { sortBurgerConstructor } from '../services/actions';
+import { useDispatch } from '@/utils/hooks';
 
 interface IBurgerConstructorIngredientProps {
 	ingredient: TIngredient;
-	handleDeleteIngredient: (index: number) => void;
+	handleDeleteIngredient: (id: string) => void;
 	index: number;
 }
 

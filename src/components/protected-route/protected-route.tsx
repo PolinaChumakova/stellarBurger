@@ -1,6 +1,5 @@
-import { RootState } from '@/utils/types';
+import { useSelector } from '@/utils/hooks';
 import { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface IProtectedProps {
@@ -9,7 +8,7 @@ interface IProtectedProps {
 }
 
 const Protected: FC<IProtectedProps> = ({ onlyUnAuth = false, component }) => {
-	const { isAuthChecked, user } = useSelector((state: RootState) => state.auth);
+	const { isAuthChecked, user } = useSelector((state) => state.auth);
 
 	const location = useLocation();
 

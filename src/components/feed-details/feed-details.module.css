@@ -1,0 +1,75 @@
+.feedContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.number {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.status {
+	color: var(--colors-interface-success);
+}
+
+.ingredientsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: start;
+	gap: 16px;
+	max-height: 35vh;
+	padding-right: 24px;
+	overflow-y: auto;
+	text-align: center;
+}
+
+.ingredient {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 24px;
+	width: 100%;
+}
+
+.ingredientIconName {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 16px;
+}
+
+.ingredientIconContainer {
+	position: relative;
+	z-index: 1;
+	width: 64px;
+	height: 64px;
+	padding: 2px;
+	background: linear-gradient(135deg, #801ab2, #4c4cff);
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.ingredientIcon {
+	position: relative;
+	width: 64px;
+	height: 64px;
+	background-color: #1c1c21;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.price {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.dateSum {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40px;
+}

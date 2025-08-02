@@ -9,3 +9,10 @@
 	width: 120px;
 	height: 120px;
 }
+
+.digits {
+	display: inline-block;
+	margin-top: 56px;
+	text-shadow: 0 0 15px #4c4cff;
+	-webkit-text-stroke: 0.2px #4c4cff;
+}
