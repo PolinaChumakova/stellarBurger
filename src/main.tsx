@@ -3,7 +3,7 @@ import { thunk } from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 import './index.css';
 import { App } from '@components/app/app.tsx';

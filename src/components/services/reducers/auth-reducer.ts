@@ -30,7 +30,7 @@ type TInitialState = {
 	isAuthChecked: boolean;
 };
 
-const initialState = {
+export const initialStateAuth = {
 	user: null,
 	isLoading: false,
 	error: null,
@@ -38,7 +38,7 @@ const initialState = {
 };
 
 export function authReducer(
-	state = initialState,
+	state = initialStateAuth,
 	action: TAuthActions
 ): TInitialState {
 	switch (action.type) {
@@ -59,7 +59,6 @@ export function authReducer(
 			return {
 				...state,
 				isLoading: false,
-				// error: action.payload,
 				user: null,
 			};
 
