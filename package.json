@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
-	"homepage": "https://PolinaChumakova.github.io/stellarBurger.git",
+	"homepage": "https://PolinaChumakova.github.io/stellarBurger",
 	"scripts": {
 		"prepare": "husky",
 		"dev": "vite",
@@ -20,7 +20,7 @@
 		"test": "vitest",
 		"test:ui": "vitest --ui",
 		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build",
+		"deploy": "gh-pages -d dist",
 		"start": "react-scripts start"
 	},
 	"dependencies": {
