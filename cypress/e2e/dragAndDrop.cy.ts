@@ -1,6 +1,6 @@
 describe('Drag and Drop ингредиентов)', () => {
 	beforeEach(() => {
-		cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
+		cy.intercept('GET', 'api/ingredients', {
 			statusCode: 200,
 			body: {
 				success: true,
