@@ -13,7 +13,7 @@ type TInitialState = {
 	burgerIngredientsMap: { [key: string]: TIngredient };
 };
 
-const initialState: TInitialState = {
+export const initialStateBurgerIngredients: TInitialState = {
 	burgerIngredientsRequest: false,
 	burgerIngredientsFailed: false,
 	burgerIngredients: [],
@@ -21,7 +21,7 @@ const initialState: TInitialState = {
 };
 
 export const burgerIngredientsReducer = (
-	state = initialState,
+	state = initialStateBurgerIngredients,
 	action: TBurgersActions
 ): TInitialState => {
 	switch (action.type) {

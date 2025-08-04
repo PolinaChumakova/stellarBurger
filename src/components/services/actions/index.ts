@@ -9,8 +9,8 @@ export const GET_BURGER_CONSTRUCTOR = 'GET_BURGER_CONSTRUCTOR' as const;
 export const DELETE_BURGER_CONSTRUCTOR = 'DELETE_BURGER_CONSTRUCTOR' as const;
 export const SORT_BURGER_CONSTRUCTOR = 'SORT_BURGER_CONSTRUCTOR' as const;
 
-export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS' as const;
-export const DELETE_INGREDIENT_DETAILS = 'DELETE_INGREDIENT_DETAILS' as const;
+// export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS' as const;
+// export const DELETE_INGREDIENT_DETAILS = 'DELETE_INGREDIENT_DETAILS' as const;
 
 export const GET_ORDER_DETAILS_REQUEST = 'GET_ORDER_DETAILS_REQUEST' as const; //для заказа при оформлении
 export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS' as const;
@@ -57,14 +57,14 @@ export interface ISortBurgerConstructor {
 	};
 }
 
-export interface ISetIngredientDetails {
-	readonly type: typeof GET_INGREDIENT_DETAILS;
-	readonly payload: TIngredient;
-}
+// export interface ISetIngredientDetails {
+// 	readonly type: typeof GET_INGREDIENT_DETAILS;
+// 	readonly payload: TIngredient;
+// }
 
-export interface IDeleteIngredientDetails {
-	readonly type: typeof DELETE_INGREDIENT_DETAILS;
-}
+// export interface IDeleteIngredientDetails {
+// 	readonly type: typeof DELETE_INGREDIENT_DETAILS;
+// }
 
 export interface IGetOrderDetailsRequest {
 	readonly type: typeof GET_ORDER_DETAILS_REQUEST;
@@ -103,8 +103,6 @@ export type TBurgersActions =
 	| ISetBurgerConstructor
 	| IDeleteBurgerConstructor
 	| ISortBurgerConstructor
-	| ISetIngredientDetails
-	| IDeleteIngredientDetails
 	| IGetOrderDetailsRequest
 	| IGetOrderDetailsSuccess
 	| IGetOrderDetailsFailed
@@ -161,16 +159,16 @@ export const sortBurgerConstructor = (
 	payload: { fromIndex, toIndex },
 });
 
-export const setIngredientDetails = (
-	ingredientDetails: TIngredient
-): ISetIngredientDetails => ({
-	type: GET_INGREDIENT_DETAILS,
-	payload: ingredientDetails,
-});
+// export const setIngredientDetails = (
+// 	ingredientDetails: TIngredient
+// ): ISetIngredientDetails => ({
+// 	type: GET_INGREDIENT_DETAILS,
+// 	payload: ingredientDetails,
+// });
 
-export const deleteIngredientDetails = (): IDeleteIngredientDetails => ({
-	type: DELETE_INGREDIENT_DETAILS,
-});
+// export const deleteIngredientDetails = (): IDeleteIngredientDetails => ({
+// 	type: DELETE_INGREDIENT_DETAILS,
+// });
 
 export const getOrderDetails =
 	(ingredientIds: string[]): AppThunk =>

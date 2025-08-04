@@ -44,7 +44,8 @@ export const IngredientItem: FC<IIngredientItemProps> = ({ ingredient }) => {
 			className={styles.burgerIngredient}
 			role='button'
 			tabIndex={0}
-			style={{ opacity: isDragging ? 0.5 : 1 }}>
+			style={{ opacity: isDragging ? 0.5 : 1 }}
+			data-cy='ingredient-card'>
 			<Link
 				key={ingredient._id}
 				to={`/ingredients/${ingredient._id}`}

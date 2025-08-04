@@ -26,16 +26,18 @@ const Modal = ({ children, header, onClose }: TModalProps) => {
 	}, [onClose]);
 
 	return (
-		<>
+		<div data-cy='modal'>
 			<ModalOverlay onClose={onClose} />
 			<div className={styles.modal}>
 				<div className={styles.modalHeader}>
 					<h2 className='text text_type_main-large'> {header} </h2>
-					<CloseIcon type='primary' onClick={onClose} />
+					<div data-cy='modal-close-icon'>
+						<CloseIcon type='primary' onClick={onClose} />
+					</div>
 				</div>
 				<div>{children}</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

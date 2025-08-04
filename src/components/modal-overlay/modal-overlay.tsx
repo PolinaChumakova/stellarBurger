@@ -17,7 +17,8 @@ const ModalOverlay = ({ onClose }: TModalOverlayProps) => {
 			onClick={onClose}
 			onKeyDown={handleKeyDown}
 			role='button'
-			tabIndex={0}></div>
+			tabIndex={0}
+			data-cy='modal-close-overlay'></div>
 	);
 };
 

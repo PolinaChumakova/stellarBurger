@@ -6,13 +6,13 @@ import {
 	TBurgersActions,
 } from '../actions';
 
-const initialState = {
+export const initialStateBurgerConstructor = {
 	bun: null,
 	ingredients: [],
 };
 
 export function burgerConstructorReducer(
-	state = initialState,
+	state = initialStateBurgerConstructor,
 	action: TBurgersActions
 ) {
 	switch (action.type) {

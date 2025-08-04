@@ -15,7 +15,7 @@ interface IWSState {
 	error?: string;
 }
 
-const initialState: IWSState = {
+export const initialStateWsAllOrders: IWSState = {
 	wsConnected: false,
 	orders: [],
 	total: 0,
@@ -24,7 +24,7 @@ const initialState: IWSState = {
 };
 
 export const wsAllOrdersReducer = (
-	state = initialState,
+	state = initialStateWsAllOrders,
 	action: TWsActions
 ): IWSState => {
 	switch (action.type) {

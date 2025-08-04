@@ -8,7 +8,7 @@ import {
 	TBurgersActions,
 } from '../actions';
 
-const initialState = {
+export const initialStateOrderDetails = {
 	orderDetailsRequest: false,
 	orderDetailsFailed: false,
 	orderDetails: null,
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export const orderDetailsReducer = (
-	state = initialState,
+	state = initialStateOrderDetails,
 	action: TBurgersActions
 ) => {
 	switch (action.type) {

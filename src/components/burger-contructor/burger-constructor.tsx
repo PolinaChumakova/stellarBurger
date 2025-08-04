@@ -100,7 +100,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 	return (
 		<section className={styles.burger_constructor}>
 			<>
-				<div ref={dropRefBun} className={styles.burgersIngredients}>
+				<div
+					ref={dropRefBun}
+					className={styles.burgersIngredients}
+					data-cy='drop-bun'>
 					{bun ? (
 						<div
 							className={styles.burgerIngredient}
@@ -123,7 +126,10 @@ export const BurgerConstructor = (): React.JSX.Element => {
 						</div>
 					)}
 					{ingredients.length > 0 ? (
-						<div ref={dropRefIng} className={styles.burgerIngredientScroll}>
+						<div
+							ref={dropRefIng}
+							className={styles.burgerIngredientScroll}
+							data-cy='drop-ingredient'>
 							{ingredients.map((item: TIngredient, index: number) => (
 								<BurgerConstructorIngredient
 									key={item.uniqueId}
@@ -137,6 +143,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 						<div className={styles.emptyIngredients}>
 							<div
 								ref={dropRefIng}
+								data-cy='drop-ingredient'
 								style={{ borderColor: borderColorBIng }}
 								className={`${styles.emptyContainer}`}>
 								<p className='text text_type_main-small'>Выберите начинку</p>
